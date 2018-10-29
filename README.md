@@ -58,3 +58,7 @@ request headers, making it available by default.
 ## Contributing
 
 See [Contributing.md](CONTRIBUTING.md) for details.
+
+- [Group participants](https://www.w3.org/2000/09/dbwg/details?group=108594&order=org&public=1)
+- [How to join](https://www.w3.org/2004/01/pp-impl/108594/join)
+- [Royalty-Free Patent Policy](https://www.w3.org/2004/01/pp-impl/108594/status)
