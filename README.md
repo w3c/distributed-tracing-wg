@@ -28,7 +28,7 @@ Overview of team related communication channels:
 - GitHub issues for any specification related issues.
 - Mailing List for general discussions. Please subscribe to [public-trace-context@w3.org](http://lists.w3.org/Archives/Public/public-trace-context/).
 - Gitter Channel to reach the team: [TraceContext/Lobby](https://gitter.im/TraceContext/Lobby).
-- Public Google calendar for all meetings and events [Google Calendar](https://calendar.google.com/calendar?cid=ZHluYXRyYWNlLmNvbV81YTA5cWh1YTZmaDdqYjIzaDd2ZGpnNnZlZ0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t).
+- Public Google calendar for all meetings and events [Google Calendar](https://calendar.google.com/calendar/embed?src=dynatrace.com_5a09qhua6fh7jb23h7vdjg6veg%40group.calendar.google.com).
 
 We appreciate feedback and contributions. Please make sure to read rationale documents when you have a question about particular
 decision made in specification.
