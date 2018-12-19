@@ -1,6 +1,55 @@
-# Contributing into Distributed Trace Context
+# Governance and Contribution to the Distributed Tracing working group
 
-This repository is being used for work in the [W3C Distributed Trace Context Working Group](https://www.w3.org/2018/distributed-tracing/).
+This document describes the contribution and governance rules for the [W3C Distributed Tracing Working Group](https://www.w3.org/2018/distributed-tracing/). This includes the following specifications
+
+- [Trace Context](https://github.com/w3c/trace-context)
+
+## Meetings
+In order to provide equitable rights to all members, the following process will be followed:
+
+- Official conference calls are held on a bi-weekly basis and are announce on a [shared calendar](https://calendar.google.com/calendar/embed?src=dynatrace.com_5a09qhua6fh7jb23h7vdjg6veg%40group.calendar.google.com)
+- Official face-to-face meetings will be announced at least 4 weeks in advance.
+- Proposed changes to any document will be done via a Pull Request (PR).
+- PRs will be reviewed during official meetings, but off-line reviews (LGTMs, NOT LGTMs) and comments are strongly encouraged to gauge the group's opinion on the proposed change prior to the meeting.
+- During meetings, priority will be given to PRs that appear to be ready for a vote over those that appear to require discussions.
+- PRs should not be merged if they have had substantial changes made within two days of the meeting. Rebases, typo fixes, etc. do not count as substantial. Note, administrivia PRs that do not materially modify output documents may be processed by admins as needed.
+- Resolving PRs ("merging" or "closing with no action") will be done as a result of a motion made during a meeting, and approved.
+- Reopening a PR can be done if new information is made available, and a motion to do so is approved.
+- Any motion that does not have "unanimous consent" will result in a formal vote. See Voting.
+
+
+## Participation
+There are three categories of project participation:
+
+1 - Working Group Member. This is anyone who officially participates in the group's activities in any of our communication channels (email, github issues/PRs, meetings, etc.). Working group members can file PRs against documents and can participate in the PR voting procedure. Working Group members need to be employed by a W3C member organisation or participate as invited experts. 
+2 - Non Working Group Member. This is anyone who  participates in the group's activities in any of our communication channels (email, github issues/PRs, meetings, etc.). In contrast to Working Group members they cannot file a PR or vote on a PR. They can, however, create issues for specifcations. 
+3 - Chairs and Co-Chairs are members of the group but have the ability to perform administrative actions on behalf of the group. For example, manage the website, github repos and moderate the meetings. Their actions should be done with the knowledge and consent of the group. They also have the ability to merge/close PRs, but only per the group's approval. 
+
+## PRs
+Typically, PRs are expected to meet the following criteria prior to being merged:
+
+- The author of the PR indicates that it is ready for review by asking for it to be discussed in an upcoming meeting - eg. by adding it to the agenda document.
+- All comments have been addressed.
+- PRs that have objections/concerns will be discussed off-line by interested parties. A resolution, updated PR, will be expected from those talks.
+
+## Voting
+If a vote is taken during a meeting, the follow rules will be followed:
+
+- There is only 1 vote per participating company, or nonaffiliated individual.
+- Each participating company can assign a primary and secondary representative.
+A participating company attains voting rights by having any of the entity's assigned representative(s), in aggregate, attend 3 out of the last 4 meetings. The people listed as "primary" or "alternate" for an entity can be changed no more than once a month and can be changed by notifying one of the admins. The entity obtains voting rights after the 3rd meeting, not during.
+- Only members with voting rights will be allowed to vote.
+- A vote passes if more than 50% of the votes cast approve the motion.
+- Only "yes" or "no" votes count, "abstain" votes do not count towards the total.
+- Meeting attendance will be formally tracked here. Members must acknowledge their presence verbally, meaning, adding yourself to the "Attendees" section of the Agenda document is not sufficient.
+When a vote is called, unless all voting members have voted, the vote will be tallied no less than one week after calling the vote.
+- Voting process:
+   - Comment on the PR: "YES VOTE", "NO VOTE", or "ABSTAIN".
+   - Any person is encouraged to vote with a statement of support or dissent to help undecided voters to reach a decision
+   = Comments are welcome from non-members
+   = Voting tally will reflect the above qualification and recorded in PR
+
+
 
 ## Editing report
 
