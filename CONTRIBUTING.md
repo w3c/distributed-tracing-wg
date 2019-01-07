@@ -3,13 +3,14 @@
 This document describes the contribution and governance rules for the [W3C Distributed Tracing Working Group](https://www.w3.org/2018/distributed-tracing/). This includes the following specifications
 
 - [Trace Context](https://github.com/w3c/trace-context)
+- [Correlation Context](https://github.com/w3c/correlation-context)
 
 ## Meetings
 In order to provide equitable rights to all members, the following process will be followed:
 
-- Official conference calls are held on a bi-weekly basis and are announce on a [shared calendar](https://calendar.google.com/calendar/embed?src=dynatrace.com_5a09qhua6fh7jb23h7vdjg6veg%40group.calendar.google.com)
+- Official conference calls are held on a bi-weekly basis and are announced on a [shared calendar](https://calendar.google.com/calendar/embed?src=dynatrace.com_5a09qhua6fh7jb23h7vdjg6veg%40group.calendar.google.com)
 - Official face-to-face meetings will be announced at least 4 weeks in advance.
-- Proposed changes to any document will be done via a Pull Request (PR).
+- Proposed changes to any document MUST be handled via a Pull Request (PR). If the change came up during a meeting the meeting owner is responsible for creating the PR.
 - PRs will be reviewed during official meetings, but off-line reviews (LGTMs, NOT LGTMs) and comments are strongly encouraged to gauge the group's opinion on the proposed change prior to the meeting.
 - During meetings, priority will be given to PRs that appear to be ready for a vote over those that appear to require discussions.
 - PRs should not be merged if they have had substantial changes made within two days of the meeting. Rebases, typo fixes, etc. do not count as substantial. Note, administrivia PRs that do not materially modify output documents may be processed by admins as needed.
@@ -21,9 +22,9 @@ In order to provide equitable rights to all members, the following process will 
 ## Participation
 There are three categories of project participation:
 
-1 - Working Group Member. This is anyone who officially participates in the group's activities in any of our communication channels (email, github issues/PRs, meetings, etc.). Working group members can file PRs against documents and can participate in the PR voting procedure. Working Group members need to be employed by a W3C member organisation or participate as invited experts. 
-2 - Non Working Group Member. This is anyone who  participates in the group's activities in any of our communication channels (email, github issues/PRs, meetings, etc.). In contrast to Working Group members they cannot file a PR or vote on a PR. They can, however, create issues for specifcations. 
-3 - Chairs and Co-Chairs are members of the group but have the ability to perform administrative actions on behalf of the group. For example, manage the website, github repos and moderate the meetings. Their actions should be done with the knowledge and consent of the group. They also have the ability to merge/close PRs, but only per the group's approval. 
+1. Non Working Group Member. This is anyone who  participates in the group's activities in any of our communication channels (email, github issues/PRs, meetings, etc.). In contrast to Working Group members they can file a PR but not vote on a PR. They can, however, create issues for specifcations. 
+2. Working Group Member. This is anyone who officially participates in the group's activities in any of our communication channels (email, github issues/PRs, meetings, etc.). Working group members can file PRs against documents and can participate in the PR voting procedure. Working Group members need to be employed by a W3C member organization or participate as invited experts. 
+3. Chairs and Co-Chairs are members of the group but have the ability to perform administrative actions on behalf of the group. For example, manage the website, github repos and moderate the meetings. Their actions should be done with the knowledge and consent of the group. They also have the ability to merge/close PRs, but only per the group's approval. 
 
 ## PRs
 Typically, PRs are expected to meet the following criteria prior to being merged:
