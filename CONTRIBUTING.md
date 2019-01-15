@@ -12,11 +12,11 @@ In order to provide equitable rights to all members, the following process will 
 - Official face-to-face meetings will be announced at least 4 weeks in advance.
 - Proposed changes to any document MUST be handled via a Pull Request (PR). If the change came up during a meeting the meeting owner is responsible for creating the PR.
 - PRs will be reviewed during official meetings, but off-line reviews (LGTMs, NOT LGTMs) and comments are strongly encouraged to gauge the group's opinion on the proposed change prior to the meeting.
+- If a topic is not defined specifically enough yet to justify a PR against the specification, contributors are encouraged to file an issue. 
 - During meetings, priority will be given to PRs that appear to be ready for a vote over those that appear to require discussions.
 - PRs should not be merged if they have had substantial changes made within two days of the meeting. Rebases, typo fixes, etc. do not count as substantial. Note, administrivia PRs that do not materially modify output documents may be processed by admins as needed.
 - Resolving PRs ("merging" or "closing with no action") will be done as a result of a motion made during a meeting, and approved.
 - Reopening a PR can be done if new information is made available, and a motion to do so is approved.
-- Any motion that does not have "unanimous consent" will result in a formal vote. See Voting.
 
 
 ## Participation  
