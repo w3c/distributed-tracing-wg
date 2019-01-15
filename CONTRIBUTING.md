@@ -19,38 +19,23 @@ In order to provide equitable rights to all members, the following process will 
 - Any motion that does not have "unanimous consent" will result in a formal vote. See Voting.
 
 
-## Participation
+## Participation  
 There are three categories of project participation:
 
 1. Non Working Group Member. This is anyone who  participates in the group's activities in any of our communication channels (email, github issues/PRs, meetings, etc.). In contrast to Working Group members they can file a PR but not vote on a PR. They can, however, create issues for specifcations. 
 2. Working Group Member. This is anyone who officially participates in the group's activities in any of our communication channels (email, github issues/PRs, meetings, etc.). Working group members can file PRs against documents and can participate in the PR voting procedure. Working Group members need to be employed by a W3C member organization or participate as invited experts. 
 3. Chairs and Co-Chairs are members of the group but have the ability to perform administrative actions on behalf of the group. For example, manage the website, github repos and moderate the meetings. Their actions should be done with the knowledge and consent of the group. They also have the ability to merge/close PRs, but only per the group's approval. 
 
-## PRs
-Typically, PRs are expected to meet the following criteria prior to being merged:
+## PRs and Voting
+Specificaiton changes are proposed via PRs which are expected to meet the following criteria prior to being merged:
 
 - The author of the PR indicates that it is ready for review by asking for it to be discussed in an upcoming meeting - eg. by adding it to the agenda document.
 - All comments have been addressed.
-- PRs that have objections/concerns will be discussed off-line by interested parties. A resolution, updated PR, will be expected from those talks.
+- PRs that have objections/concerns will be discussed in dedicated by interested parties. A resolution, updated PR, will be expected from those talks.
 
-## Voting
-If a vote is taken during a meeting, the follow rules will be followed:
+Every member of the working group is encouraged to vote with a statement of support and dissent on any PR. If a member has concerns regarding a PR they are encouraged to comment on the issue and join in discussions. If a member does reply to a comment within a reasonable timeframe - one business week - the comment is considered properly addressed. 
 
-- There is only 1 vote per participating company, or nonaffiliated individual.
-- Each participating company can assign a primary and secondary representative.
-A participating company attains voting rights by having any of the entity's assigned representative(s), in aggregate, attend 3 out of the last 4 meetings. The people listed as "primary" or "alternate" for an entity can be changed no more than once a month and can be changed by notifying one of the admins. The entity obtains voting rights after the 3rd meeting, not during.
-- Only members with voting rights will be allowed to vote.
-- A vote passes if more than 50% of the votes cast approve the motion.
-- Only "yes" or "no" votes count, "abstain" votes do not count towards the total.
-- Meeting attendance will be formally tracked here. Members must acknowledge their presence verbally, meaning, adding yourself to the "Attendees" section of the Agenda document is not sufficient.
-When a vote is called, unless all voting members have voted, the vote will be tallied no less than one week after calling the vote.
-- Voting process:
-   - Comment on the PR: "YES VOTE", "NO VOTE", or "ABSTAIN".
-   - Any person is encouraged to vote with a statement of support or dissent to help undecided voters to reach a decision
-   = Comments are welcome from non-members
-   = Voting tally will reflect the above qualification and recorded in PR
-
-
+The goal of the working group is to reach consensus by discussion. If consensus cannot be reached the [W3C Voting rules](https://www.w3.org/2018/Process-20180201/#Votes) apply. 
 
 ## Editing report
 
