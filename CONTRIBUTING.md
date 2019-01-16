@@ -5,6 +5,11 @@ This document describes the contribution and governance rules for the [W3C Distr
 - [Trace Context](https://github.com/w3c/trace-context)
 - [Correlation Context](https://github.com/w3c/correlation-context)
 
+## Interacting with the working group
+
+The working group encourages all forms of contribution and questions. If you have a question, please open an issue on Github in the specification repository. 
+
+
 ## Meetings
 In order to provide equitable rights to all members, the following process will be followed:
 
@@ -14,10 +19,9 @@ In order to provide equitable rights to all members, the following process will 
 - PRs will be reviewed during official meetings, but off-line reviews (LGTMs, NOT LGTMs) and comments are strongly encouraged to gauge the group's opinion on the proposed change prior to the meeting.
 - If a topic is not defined specifically enough yet to justify a PR against the specification, contributors are encouraged to file an issue. 
 - During meetings, priority will be given to PRs that appear to be ready for a vote over those that appear to require discussions.
-- PRs should not be merged if they have had substantial changes made within two days of the meeting. Rebases, typo fixes, etc. do not count as substantial. Note, administrivia PRs that do not materially modify output documents may be processed by admins as needed.
-- Resolving PRs ("merging" or "closing with no action") will be done as a result of a motion made during a meeting, and approved.
-- Reopening a PR can be done if new information is made available, and a motion to do so is approved.
-
+- Rebases, typo fixes, etc. do not count as substantial. Note, administrivia PRs that do not materially modify output documents may be processed by admins as needed.
+- PR's can be marked for resolution during a meeting and will be merged when all issues have been addressed and the PR was open for comments for at least one business week. 
+- If issues arise after a PR has been merged, the preferred approach is to file a new issue. In rare cases the group can decide to revert a PR.
 
 ## Participation  
 There are three categories of project participation:
@@ -27,6 +31,7 @@ There are three categories of project participation:
 3. Chairs and Co-Chairs are members of the group but have the ability to perform administrative actions on behalf of the group. For example, manage the website, github repos and moderate the meetings. Their actions should be done with the knowledge and consent of the group. They also have the ability to merge/close PRs, but only per the group's approval. 
 
 ## PRs and Voting
+
 Specificaiton changes are proposed via PRs which are expected to meet the following criteria prior to being merged:
 
 - The author of the PR indicates that it is ready for review by asking for it to be discussed in an upcoming meeting - eg. by adding it to the agenda document.
