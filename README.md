@@ -2,7 +2,7 @@
 
 This repository is associated with the [Distributed Tracing Working
 Group](https://www.w3.org/2018/distributed-tracing/). It is used to work on
-group charter and processes. As well as hold meeting notes.
+the group's charter and processes, and as an archive of meeting notes.
 
 This is why you should join this [working group](WELCOME.md).
 
@@ -37,8 +37,8 @@ Overview of team related communication channels:
 - Public Google calendar for all meetings and events [Google
   Calendar](https://calendar.google.com/calendar/embed?src=dynatrace.com_5a09qhua6fh7jb23h7vdjg6veg%40group.calendar.google.com).
 
-We appreciate feedback and contributions. Please make sure to read rationale
-documents when you have a question about particular decision made in
+We appreciate feedback and contributions. Please make sure to read the rationale
+documents when you have a question about particular decision made in the
 specification.
 
 ## Goal
