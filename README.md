@@ -12,17 +12,11 @@ Specification for distributed tracing context propagation format:
 
 - Trace Context
   [Report](https://w3c.github.io/trace-context/).
-  Status: [First Public Working
-  Draft](https://www.w3.org/2017/Process-20170301/#working-draft).
-  - Rationale [document](https://github.com/w3c/trace-context/blob/master/spec/21-HTTP_HEADER_FORMAT_RATIONALE.md)
-  - [Github Repo](https://github.com/w3c/trace-context)
-  - Changes are tracked on GitHub, communicated in meetings and e-mails
-    distribution list.
+  Status: [Candidate Recommendation](https://www.w3.org/2017/Process-20170301/#candidate-recommendation).
 - Correlation Context
   [Report](https://w3c.github.io/correlation-context/).
-  Status: initial draft.
-  - Rationale [document](https://github.com/w3c/correlation-context/blob/master/correlation_context/HTTP_HEADER_FORMAT_RATIONALE.md)
-- Working group [charter](https://www.w3.org/2018/07/distributed-tracing.html) (as of working group creation). Live [charter document](https://w3c.github.io/distributed-tracing-wg/charter.html).
+  Status: editor draft.
+- Working group [charter](https://www.w3.org/2018/07/distributed-tracing.html) (as of working group creation).
 - Original [community group](https://www.w3.org/community/trace-context/).
 
 ## Team Communication
