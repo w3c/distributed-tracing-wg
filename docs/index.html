@@ -3,15 +3,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>W3C Distributed Tracing Working Group</title>
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale = 1.0, shrink-to-fit=no">
+    <meta name="Content-Security-Policy" content="script-src *">
+    <title>@@</title>
+    <link rel="preconnect" href="https://api.w3.org" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./main.css">
-    <meta name="application-name" content="Distributed Tracing @W3C" />
-    <meta name="screen-orientation" content="portrait" />
-    <meta name="full-screen" content="yes" />
-    <meta name="description" content="The mission of the Distributed Tracing is to define standards for interoperability between tracing tools." />
-    <script async type="text/javascript" src="./newsfeed.js"> </script>
+
+    <script async src="./newsfeed.js"> </script>
   </head>
   <body>
     <header>
@@ -31,22 +29,16 @@
         <ul>
           <li><a
           href="https://github.com/orgs/w3c/teams/distributed-tracing/repositories">Github
-          Organsisation</a></li>
-          <li><a href="https://github.com/w3c/trace-context">Github - Trace Context</a></li>
-          <li><a href="https://github.com/w3c/correlation-context">Github - Correlation
-          Context</a></li>
-          <li><a href="https://github.com/w3c/trace-response-headers">Github - Trace
-          Response Headers</a></li>
-          <li><a href="https://github.com/w3c/trace-interchange-format">Github - Trace
-          Interchange Format</a></li>                    
+          Organisation</a></li>
           <li><a href="https://lists.w3.org/Archives/Public/public-trace-context/">Mailing list</a></li>
+          <li><a href="https://w3cdistributedtracing.slack.com/">We're on Slack</a></li>
           <li><a href="https://www.w3.org/Consortium/cepc/">Code of Conduct</a></li>
         </ul>
-        <h3>Drafts and Reports</h3>
-        <ul>
-          <li><a href="https://www.w3.org/TR/trace-context/">Trace Context (CR)</a></li>  
-          <li><a href="https://www.w3.org/TR/tr-groups-all#tr_Distributed_Tracing_Working_Group">Technical reports</a></li>
-          <li><a href="https://labs.w3.org/unitas/?g=108594">Unitas</a></li>
+        <h3>Editor's drafts</h3>
+        <ul id='drafts'>
+        </ul>
+        <h3>Published Technical Reports</h3>
+        <ul id='specs'>
         </ul>
         <h3>Testing</h3>
         <ul>
@@ -55,30 +47,31 @@
         </ul>
         <h3>Group details</h3>
         <ul>
-          <li><a href="https://www.w3.org/2018/07/distributed-tracing">Our Charter</a></li>
-          <li><a href="https://www.w3.org/2004/01/pp-impl/108594/join">How to Join?</a></li>
-          <li><a href="https://www.w3.org/2000/09/dbwg/details?group=108594&amp;order=org&amp;public=1">Participants</a></li>
-          <li><a href="https://www.w3.org/2004/01/pp-impl/108594/status">Royalty-free Patent Policy</a></li>
+          <li><a id=charter href="@">Our Charter</a></li>
+          <li><a id=join href="@">How to Join?</a></li>
+          <li><a id=participants href="@">Participants</a></li>
+          <li><a id=ipp href="@">Royalty-free Patent Policy</a></li>
         </ul>
       </nav>
 
       <section id='content'>
-        <h1 class="title">Distributed Tracing Working Group</h1>
+        <h1 class="title">@@</h1>
 
         <section id="mission">
           <h2>Our Mission</h2>
-          <p>We define standards for interoperability between tracing tools.</p>
+          <p>@@</p>
         </section>
 
-        <p>The Chair of the Working Group is
-            <a href="mailto:alois.reitbauer@dynatrace.com">Alois Reitbauer</a>. The W3C Team Contact for the Distributed Tracing Working Group is
-            <a href="https://www.w3.org/People/#plh">Philippe Le H&eacute;garet</a>.
-        </p>
+        <p id='chairs'>The Chairs of the Working Group are <span>@@</span>.</p>
+        <p id='team-contacts'>The Team Contact of the Working Group is <span>@@</span>.</p>
 
-        <p>
-          Alois wrote an <a href="https://medium.com/@AloisReitbauer/trace-context-and-the-road-toward-trace-tool-interoperability-d4d56932369c">explainer of the work</a>.
-        </p>
         <section id='articles'>
+            <article class="line">
+              <h3>Trace-Context and the road toward trace tool interoperability</h3>
+              <p>
+                Alois wrote an <a href="https://medium.com/@AloisReitbauer/trace-context-and-the-road-toward-trace-tool-interoperability-d4d56932369c">explainer of the work</a>.
+              </p>
+          </article>
           <article class="line">
             <h3>October 25-26 at TPAC 2018</span></h3>
             <p>
@@ -103,11 +96,42 @@
 
     <footer>
       <address>
-        <a href="https://github.com/w3c/distributed-tracing/">We are on GitHub</a></address>
+        <a href="https://github.com/w3c/distributed-tracing-wg/">We are on GitHub</a></address>
       <p id="copyright">
         <a href="https://www.w3.org/">W3C</a> - <a href="https://www.w3.org/Consortium/Legal/privacy-statement">Privacy</a> - <a href='http://www.w3.org/Consortium/Legal/ipr-notice'>Terms</a>
       </p>
     </footer>
-
+    <script src="groupinfo.js"></script>
+  <script>
+  const GROUPID = "108594";
+  function _renderGroup(group) {
+    console.log(group);
+    document.querySelector("h1").textContent = document.title = group.name;
+    document.querySelector("#mission p").textContent = group.description;
+    document.querySelector("#chairs span").textContent = group.chairs.reduce((ac, c) => (ac)? c.name + ", " + ac : c.name, null);
+    document.querySelector("#team-contacts span").textContent = group["team-contacts"].reduce((ac, c) => (ac)? c.name + ", " + ac : c.name, null);
+    group["specifications"].forEach((spec => {
+      const ul = document.getElementById("specs");
+      let li = document.createElement("li");
+      li.innerHTML = `<a href='${spec.shortlink}'>${spec.title}</a>`;
+      ul.appendChild(li);
+    }))
+    document.querySelector("#charter").href = group["active-charter"].uri;
+    document.querySelector("#join").href = group["join"];
+    document.querySelector("#ipp").href = group["pp-status"];
+    document.querySelector("#participants").href =
+     `https://www.w3.org/2000/09/dbwg/details?group=${GROUPID}&order=org&public=1`;
+  }
+  function _renderRepos(repos) {
+    repos.forEach((repo => {
+      const ul = document.getElementById("drafts");
+      let li = document.createElement("li");
+      li.innerHTML = `<a href='https://w3c.github.io/${repo.name}/'>${repo.name}</a>`;
+      ul.appendChild(li);
+    }))
+  }
+  allInfo(GROUPID).then(_renderGroup).catch(console.error);
+  // groupRepos(GROUPID).then(_renderRepos).catch(console.error);
+  </script>
   </body>
 </html>
