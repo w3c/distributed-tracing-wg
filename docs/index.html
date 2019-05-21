@@ -105,7 +105,6 @@
   <script>
   const GROUPID = "108594";
   function _renderGroup(group) {
-    console.log(group);
     document.querySelector("h1").textContent = document.title = group.name;
     document.querySelector("#mission p").textContent = group.description;
     document.querySelector("#chairs span").textContent = group.chairs.reduce((ac, c) => (ac)? c.name + ", " + ac : c.name, null);
@@ -131,7 +130,7 @@
     }))
   }
   allInfo(GROUPID).then(_renderGroup).catch(console.error);
-  // groupRepos(GROUPID).then(_renderRepos).catch(console.error);
+  groupRepos(GROUPID).then(_renderRepos).catch(console.error);
   </script>
   </body>
 </html>
