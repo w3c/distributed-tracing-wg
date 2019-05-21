@@ -122,12 +122,14 @@
      `https://www.w3.org/2000/09/dbwg/details?group=${GROUPID}&order=org&public=1`;
   }
   function _renderRepos(repos) {
-    repos.forEach((repo => {
+    repos
+     .filter(repo => (repo.more.w3c["repo-type"] === "rec-track" || repo.more.w3c["repo-type"] === "note"))
+     .forEach(repo => {
       const ul = document.getElementById("drafts");
       let li = document.createElement("li");
       li.innerHTML = `<a href='https://w3c.github.io/${repo.name}/'>${repo.name}</a>`;
       ul.appendChild(li);
-    }))
+    });
   }
   allInfo(GROUPID).then(_renderGroup).catch(console.error);
   groupRepos(GROUPID).then(_renderRepos).catch(console.error);
