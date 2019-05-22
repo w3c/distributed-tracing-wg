@@ -32,7 +32,7 @@ function resolveW3CLinks(set) {
         if (key === "self") {
           // skip
         } else if (href.indexOf(W3C_APIURL) === 0) {
-          data[key] = getW3CData(href).then(subdata => (subdata[key])? subdata[key] : data);
+          data[key] = getW3CData(href).then(subdata => (subdata[key])? subdata[key] : subdata);
         } else {
           data[key] = href;
         }

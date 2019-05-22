@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./main.css">
     <script>
   const GROUPID = "108594";
+  // const GROUPID = "45211";
   function map(query, data) {
     let elt = document.querySelector(query);
     if (typeof data === "string") {
@@ -21,6 +22,7 @@
     }
   }
   function _renderGroup(group) {
+    console.log(group)
     map("h1", group.name);
     map("title", group.name);
     map("#description", group.description);
@@ -54,7 +56,7 @@
       let span = a.querySelector('span');
       if (span) span.textContent = service.shortdesc;
     })));
-    group["active-charter"].then(data => map("#charter", data.uri));
+    group["active-charter"].then(data => map("#active-charter", data.uri));
     group["repositories"].then(repos =>
      repos.filter(repo => (repo.hasRecTrack || repo.hasNote))
      .forEach(repo => {
@@ -117,7 +119,7 @@
         </ul>
         <h3>Group details</h3>
         <ul>
-          <li><a id=charter href="@">Our Charter</a></li>
+          <li><a id=active-charter href="@">Our Charter</a></li>
           <li><a id=join href="@">How to Join?</a></li>
           <li><a id=participants href="@">Participants</a></li>
           <li><a id=ipp href="@">Royalty-free Patent Policy</a></li>
