@@ -5,13 +5,84 @@
     <meta charset="utf-8">
     <meta name="Content-Security-Policy" content="script-src *">
     <title>@@</title>
-    <link rel="preconnect" href="https://api.w3.org" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="groupinfo.js"></script>
     <link rel="stylesheet" href="./main.css">
+    <script>
+//  const GROUPID = "108594";
+  const GROUPID = "45211";
+  function map(query, data) {
+    let elt = document.querySelector(query);
+    if (typeof data === "string") {
+      if (data.indexOf('http') === 0) {
+        elt.href = data;
+      } else {
+        elt.textContent = data;
+      }
+    }
+  }
+  function _renderGroup(group) {
+    map("h1", group.name);
+    map("title", group.name);
+    map("#description", group.description);
+    map("#join", group.join);
+    map("#participants", group.details);
+    document.querySelector("#ipp").href = group["pp-status"];
+    let format = (ac, c, idx, src) => (ac)? ac + ((idx === src.length-1)? ", and " : ", ") + c : c;
+    group.chairs.then(data => map("#chairs span", data.map(c => c.name).reduce(format)));
+    group["team-contacts"].then(data => map("#team-contacts span", data.map(c => c.name).reduce(format)));
+    group.participations.then(data => map("#participations span", data.map(c => c.title).reduce(format)));
+    group["specifications"].then(data => data.forEach((spec => {
+      const ul = document.getElementById("specs");
+      let li = document.createElement("li");
+      let text = `<a href='${spec.shortlink}'>${spec.title}</a>`;
+      if (spec.milestones) {
+        let stones = Object.entries(spec.milestones).map(s => s[0] + " " + s[1]);
+        if (stones.length > 0) {
+          text += `<br><small>Milestones: <a href="${group["dashboard"].href}">`;
+          text += stones.reduce(format);
+          text += "</a></small>"
+        }
+      }
+      li.innerHTML = text;
+      ul.appendChild(li);
+    })));
+    group["services"].then (data => data.forEach((service => {
+      const a = document.getElementById(service.type);
+      if (!a) {console.warn(`Service "${service.type}" isn't displayed`); return;}
+      a.href = service.link;
+      a.title = service.longdesc;
+      let span = a.querySelector('span');
+      if (span) span.textContent = service.shortdesc;
+    })));
+    group["active-charter"].then(data => map("#charter", data.uri));
+    group["repositories"].then(repos =>
+     repos.filter(repo => (repo.hasRecTrack || repo.hasNote))
+     .forEach(repo => {
+      const ul = document.getElementById("drafts");
+      let li = document.createElement("li");
+      var link = (repo.homepageUrl)? repo.homepageUrl : `https://${repo.owner.login}.github.io/${repo.name}/`;
+      var desc = (repo.description)? repo.description : repo.fullName;
+      let text = `<a href='${link}'>${desc}</a>`;
+      if (repo.issues) {
+        let openIssues = repo.issues.filter(i => i.state === "open" && !i.isPullRequest);
+        let openPRs = repo.issues.filter(i => i.state === "open" && i.isPullRequest);
+        text += `<br><small>(<a href="https://github.com/${repo.owner.login}/${repo.name}/issues">`
+            + `${openIssues.length} `
+            + `issues</a>, <a href="https://github.com/${repo.owner.login}/${repo.name}/pull">`
+            + `${openPRs.length} `
+            + "PRs</a>)</small>"
+      }
+      li.innerHTML = text;
+      ul.appendChild(li);
+    }));
+  }
+  let query = groupInfo(GROUPID);
+  </script>
 
     <script async src="./newsfeed.js"> </script>
   </head>
-  <body>
+  <body onload="query.then(_renderGroup).catch(console.error)">
     <header>
       <nav>
         <ul>
@@ -59,11 +130,12 @@
 
         <section id="mission">
           <h2>Our Mission</h2>
-          <p>@@</p>
+          <p id='description'>@@</p>
         </section>
 
         <p id='chairs'>The Chairs of the Working Group are <span>@@</span>.</p>
         <p id='team-contacts'>The Team Contact of the Working Group is <span>@@</span>.</p>
+        <p id='participations'>The participants of the Working Group are <span>@@</span>.</p>
 
         <section id='articles'>
             <article class="line">
@@ -103,46 +175,5 @@
         <a href="https://www.w3.org/">W3C</a> - <a href="https://www.w3.org/Consortium/Legal/privacy-statement">Privacy</a> - <a href='http://www.w3.org/Consortium/Legal/ipr-notice'>Terms</a>
       </p>
     </footer>
-    <script src="groupinfo.js"></script>
-  <script>
-  const GROUPID = "108594";
-  function _renderGroup(group) {
-    document.querySelector("h1").textContent = document.title = group.name;
-    document.querySelector("#mission p").textContent = group.description;
-    document.querySelector("#join").href = group.join;
-    document.querySelector("#participants").href = group.details;
-    document.querySelector("#ipp").href = group["pp-status"];
-    let format = (ac, c, idx, src) => (ac)? ac + ((idx === src.length-1)? ", and " : ", ") + c : c;
-    group.chairs.then(data => document.querySelector("#chairs span").textContent = data.map(c => c.name).reduce(format));
-    group["team-contacts"].then(data => document.querySelector("#team-contacts span").textContent = data.map(c => c.name).reduce(format));
-    group["specifications"].then (data => data.forEach((spec => {
-      const ul = document.getElementById("specs");
-      let li = document.createElement("li");
-      li.innerHTML = `<a href='${spec.shortlink}'>${spec.title}</a>`;
-      ul.appendChild(li);
-    })));
-    group["services"].then (data => data.forEach((service => {
-      const a = document.getElementById(service.type);
-      if (!a) {console.warn(`Service "${service.type}" isn't displayed`); return;}
-      a.href = service.link;
-      a.title = service.longdesc;
-      let span = a.querySelector('span');
-      if (span) span.textContent = service.shortdesc;
-    })));
-    group["active-charter"].then(data => document.querySelector("#charter").href = data.uri);
-  }
-  function _renderRepos(repos) {
-    repos
-     .filter(repo => (repo.hasRecTrack || repo.hasNote))
-     .forEach(repo => {
-      const ul = document.getElementById("drafts");
-      let li = document.createElement("li");
-      li.innerHTML = `<a href='${repo.homepageUrl}'>${repo.description}</a>`;
-      ul.appendChild(li);
-    });
-  }
-  groupInfo(GROUPID).then(_renderGroup).catch(console.error);
-  groupRepos(GROUPID).then(_renderRepos).catch(console.error);
-  </script>
   </body>
 </html>
