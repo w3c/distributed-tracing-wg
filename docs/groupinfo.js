@@ -1,48 +1,74 @@
+const W3C_APIURL = "https://api.w3.org/";
 
+let DATA_CACHE = {};
 function getW3CData(queryPath) {
-  const apiURL = new URL(queryPath, "https://api.w3.org/");
+  const apiURL = new URL(queryPath, W3C_APIURL);
   apiURL.searchParams.set("apikey", "esj1ar4rl3scks04kg8kkwo4kwc8ow4");
-  apiURL.searchParams.set("embed", "1");
-  return fetch(apiURL).then(r => r.json());
+  apiURL.searchParams.set("embed", "1"); // grab everything
+  apiURL.searchParams.set("limit", "200"); // default is 100 otherwise
+  const ENTRY = apiURL.toString();
+  if (DATA_CACHE[ENTRY]) return DATA_CACHE[ENTRY];
+  return DATA_CACHE[ENTRY] = fetch(apiURL).then(r => r.json()).then(data => {
+    if (data.pages && data.pages > 1)
+     console.error(`${queryPath} needs pagination support`); // @@TODO
+    return data._embedded? data._embedded : data;
+  });
 }
 
-let GROUP_INFO = {};
-async function allInfo(groupId) {
-  if (GROUP_INFO[groupId]) return GROUP_INFO[groupId];
-  // else
+async function groupInfo(groupId) {
   const group = await getW3CData(`/groups/${groupId}`);
+//  console.log(group);
   const {
     _links: {
       specifications: { href: specsHref },
-      chairs: { href: chairsHref },
-      "team-contacts": { href: teamContactsHref },
-      "participations": { href: participationsHref },
-      "services": { href: servicesHref },
-      "active-charter": { href: charterHref },
     },
   } = group;
-  p_chairs = getW3CData(chairsHref);
-  p_teamcontacts = getW3CData(teamContactsHref);
-  p_participations = getW3CData(participationsHref);
-  p_services = getW3CData(servicesHref);
-  p_charter = getW3CData(charterHref);
 
-  group.chairs = (await p_chairs)["_embedded"]["chairs"];
-  group["team-contacts"] = (await p_teamcontacts)["_embedded"]["team-contacts"];
-  group["participations"] = (await p_participations)["_embedded"]["participations"];
-  group["services"] = (await p_services)["_embedded"]["services"];
-  group["active-charter"] = await p_charter;
-  group["join"] = group["_links"]["join"]["href"];
-  group["pp-status"] = group["_links"]["pp-status"]["href"];
-
-  const {
-    _links: { specifications },
-  } = await getW3CData(specsHref);
-  group.specifications = await Promise.all(specifications.map(async ({ href: specHref, title }) => {
-    return getW3CData(specHref);
-  }));
-  GROUP_INFO[groupId] = group;
+  for (const key in group._links) {
+    if (group._links.hasOwnProperty(key)) {
+      const href = group._links[key].href;
+      if (key === "self") {
+        // skip
+      } else if (href.indexOf(W3C_APIURL) === 0) {
+        group[key] = getW3CData(href).then(data => (data[key])? data[key] : data);
+      } else {
+        group[key] = href;
+      }
+    }
+  }
+  // Some additional useful links
+  group["details"] = `https://www.w3.org/2000/09/dbwg/details?group=${groupId}&order=org&public=1`;
+  group["edit"] = `https://www.w3.org/2011/04/dbwg/group-services?gid=${groupId}`;
   return group;
+}
+
+// firs rec track, then note, then alphabetical order
+function sortRepo(a, b) {
+  let recA = a.hasRecTrack;
+  let recB = b.hasRecTrack;
+  if (recA && !recB) {
+    return -1;
+  }
+  if (!recA && recB) {
+    return 1;
+  }
+  let noteA = a.hasNote;
+  let noteB = b.hasNote;
+  if (noteA && !noteB) {
+    return -1;
+  }
+  if (!noteA && noteB) {
+    return 1;
+  }
+  if (a.name < b.name) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+
+  // names must be equal
+  return 0;
 }
 
 async function groupRepos(groupId) {
@@ -50,8 +76,14 @@ async function groupRepos(groupId) {
   const report = "https://w3c.github.io/validate-repos/report.json";
 
   return fetch(report).then(r => r.json()).then(data => {
-    return data.groups[groupId].repos.map(repo => {
-      return { name : repo.name, fullName: repo.fullName, hasRecTrack: repo.hasRecTrack, more: data.repos.filter(r => r.name === repo.name)[0] };
-    })
+    let repos = data.groups[groupId].repos.map(repo => {
+      let GH = data.repos.filter(r => (r.name === repo.name && r.owner.login === repo.fullName.split('/')[0]))[0];
+      GH.fullName = repo.fullName;
+      GH.hasRecTrack = GH.w3c["repo-type"].includes("rec-track");
+      GH.hasNote = GH.w3c["repo-type"].includes("note");
+      return GH;
+    });
+    repos.sort(sortRepo);
+    return repos;
   });
 }

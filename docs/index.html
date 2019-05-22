@@ -30,8 +30,8 @@
           <li><a
           href="https://github.com/orgs/w3c/teams/distributed-tracing/repositories">Github
           Organisation</a></li>
-          <li><a href="https://lists.w3.org/Archives/Public/public-trace-context/">Mailing list</a></li>
-          <li><a href="https://w3cdistributedtracing.slack.com/">We're on Slack</a></li>
+          <li><a id=lists href="@">Mailing list</a></li>
+          <li><a id=chat href="@">We're on <span></span></a></li>
           <li><a href="https://www.w3.org/Consortium/cepc/">Code of Conduct</a></li>
         </ul>
         <h3>Editor's drafts</h3>
@@ -98,7 +98,7 @@
 
     <footer>
       <address>
-        <a href="https://github.com/w3c/distributed-tracing-wg/">We are on GitHub</a></address>
+        <a id=repository href="@">We are on <span></span></a></address>
       <p id="copyright">
         <a href="https://www.w3.org/">W3C</a> - <a href="https://www.w3.org/Consortium/Legal/privacy-statement">Privacy</a> - <a href='http://www.w3.org/Consortium/Legal/ipr-notice'>Terms</a>
       </p>
@@ -109,31 +109,39 @@
   function _renderGroup(group) {
     document.querySelector("h1").textContent = document.title = group.name;
     document.querySelector("#mission p").textContent = group.description;
-    document.querySelector("#chairs span").textContent = group.chairs.reduce((ac, c) => (ac)? c.name + ", " + ac : c.name, null);
-    document.querySelector("#team-contacts span").textContent = group["team-contacts"].reduce((ac, c) => (ac)? c.name + ", " + ac : c.name, null);
-    group["specifications"].forEach((spec => {
+    document.querySelector("#join").href = group.join;
+    document.querySelector("#participants").href = group.details;
+    document.querySelector("#ipp").href = group["pp-status"];
+    let format = (ac, c, idx, src) => (ac)? ac + ((idx === src.length-1)? ", and " : ", ") + c : c;
+    group.chairs.then(data => document.querySelector("#chairs span").textContent = data.map(c => c.name).reduce(format));
+    group["team-contacts"].then(data => document.querySelector("#team-contacts span").textContent = data.map(c => c.name).reduce(format));
+    group["specifications"].then (data => data.forEach((spec => {
       const ul = document.getElementById("specs");
       let li = document.createElement("li");
       li.innerHTML = `<a href='${spec.shortlink}'>${spec.title}</a>`;
       ul.appendChild(li);
-    }))
-    document.querySelector("#charter").href = group["active-charter"].uri;
-    document.querySelector("#join").href = group["join"];
-    document.querySelector("#ipp").href = group["pp-status"];
-    document.querySelector("#participants").href =
-     `https://www.w3.org/2000/09/dbwg/details?group=${GROUPID}&order=org&public=1`;
+    })));
+    group["services"].then (data => data.forEach((service => {
+      const a = document.getElementById(service.type);
+      if (!a) {console.warn(`Service "${service.type}" isn't displayed`); return;}
+      a.href = service.link;
+      a.title = service.longdesc;
+      let span = a.querySelector('span');
+      if (span) span.textContent = service.shortdesc;
+    })));
+    group["active-charter"].then(data => document.querySelector("#charter").href = data.uri);
   }
   function _renderRepos(repos) {
     repos
-     .filter(repo => (repo.more.w3c["repo-type"] === "rec-track" || repo.more.w3c["repo-type"] === "note"))
+     .filter(repo => (repo.hasRecTrack || repo.hasNote))
      .forEach(repo => {
       const ul = document.getElementById("drafts");
       let li = document.createElement("li");
-      li.innerHTML = `<a href='https://w3c.github.io/${repo.name}/'>${repo.name}</a>`;
+      li.innerHTML = `<a href='${repo.homepageUrl}'>${repo.description}</a>`;
       ul.appendChild(li);
     });
   }
-  allInfo(GROUPID).then(_renderGroup).catch(console.error);
+  groupInfo(GROUPID).then(_renderGroup).catch(console.error);
   groupRepos(GROUPID).then(_renderRepos).catch(console.error);
   </script>
   </body>
