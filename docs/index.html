@@ -45,7 +45,8 @@
     group["active-charter"].then(data => map("#active-charter", data.uri));
     group["active-charter"].then(data => map("#active-charter", `from ${data.start} to ${data.end}`));
     map("#status", (group["is-closed"])? "closed" : "open" );
-    group.participations.then(data => map("#participations", data.map(c => c.title).reduce(format)));
+    group.participations.then(data => map("#participations", data.filter(c => !c.individual).map(c => c.title).reduce(format)));
+    group["users"].then(data => map("#users", data.map(c => individual(c)).reduce(format)));
     group["specifications"]
     .then(data => data.forEach(spec => {
       const dl = document.getElementById("specs");
@@ -137,8 +138,10 @@
           <dd><a id='active-charter'>@@</a></dd>
           <dt>Status</dt>
           <dd id='status'>@@</dd>
-          <dt>Participants</dt>
+          <dt>Participating Organizations</dt>
           <dd id='participations'></dd>
+          <dt>Participating Individuals</dt>
+          <dd id='users'></dd>
           <dd>[<a id='join' href="@">Join the Group</a>]
             [<a id='details' href="@">Detailed list of Participants</a>]</dd>
           <dt>W3C Patent Policy</dt>

@@ -15,9 +15,16 @@ function getW3CData(queryPath) {
   apiURL.searchParams.set("apikey", "esj1ar4rl3scks04kg8kkwo4kwc8ow4");
   apiURL.searchParams.set("embed", "1"); // grab everything
   return getData(apiURL).then(data => {
-    if (data.pages && data.pages > 1)
-     console.error(`${queryPath} needs pagination support`); // @@TODO
-    if (data._embedded) return data._embedded; // assume withLinks is already covered
+    if (data.pages && data.pages > 1 && data.page < data.pages) {
+       return getW3CData(data._links.next.href).then(nextData => {
+         let key = Object.keys(data._embedded)[0];
+         return data._embedded[key].concat(nextData);
+       });
+    }
+    if (data._embedded) {
+      let key = Object.keys(data._embedded)[0];
+      return data._embedded[key]; // assume withLinks is already covered
+    }
     return data;
   });
 }
@@ -32,7 +39,7 @@ function resolveW3CLinks(set) {
         if (key === "self") {
           // skip
         } else if (href.indexOf(W3C_APIURL) === 0) {
-          data[key] = getW3CData(href).then(subdata => (subdata[key])? subdata[key] : subdata);
+          data[key] = getW3CData(href);
         } else {
           data[key] = href;
         }
