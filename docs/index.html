@@ -10,72 +10,106 @@
     <link rel="stylesheet" href="./main.css">
     <script>
   const GROUPID = "108594";
-  // const GROUPID = "45211";
   function map(query, data) {
     let elt = document.querySelector(query);
     if (typeof data === "string") {
       if (data.indexOf('http') === 0) {
         elt.href = data;
+      } else if (data.indexOf('<') === 0) {
+        elt.innerHTML = data;
       } else {
         elt.textContent = data;
       }
     }
   }
   function _renderGroup(group) {
-    console.log(group)
-    map("h1", group.name);
+    const format = (ac, c, idx, src) => (ac)? ac + ((idx === src.length-1)? ", and " : ", ") + c : c;
+    const individual = (contact) => {
+      const cas = contact["connected-accounts"];
+      if (cas && cas.length > 0) {
+        let gh = cas.filter((ca => ca.service === "github"));
+        if (gh.length > 0) {
+          return `<a href='${gh[0].href}'>${contact.name}</a>`;
+        }
+      }
+      return `<span>${contact.name}</span>`;
+    };
+    map("#name", group.name);
     map("title", group.name);
     map("#description", group.description);
     map("#join", group.join);
-    map("#participants", group.details);
-    document.querySelector("#ipp").href = group["pp-status"];
-    let format = (ac, c, idx, src) => (ac)? ac + ((idx === src.length-1)? ", and " : ", ") + c : c;
-    group.chairs.then(data => map("#chairs span", data.map(c => c.name).reduce(format)));
-    group["team-contacts"].then(data => map("#team-contacts span", data.map(c => c.name).reduce(format)));
-    group.participations.then(data => map("#participations span", data.map(c => c.title).reduce(format)));
-    group["specifications"].then(data => data.forEach((spec => {
-      const ul = document.getElementById("specs");
-      let li = document.createElement("li");
-      let text = `<a href='${spec.shortlink}'>${spec.title}</a>`;
-      if (spec.milestones) {
-        let stones = Object.entries(spec.milestones).map(s => s[0] + " " + s[1]);
-        if (stones.length > 0) {
-          text += `<br><small>Milestones: <a href="${group["dashboard"].href}">`;
-          text += stones.reduce(format);
-          text += "</a></small>"
-        }
-      }
-      li.innerHTML = text;
-      ul.appendChild(li);
-    })));
-    group["services"].then (data => data.forEach((service => {
-      const a = document.getElementById(service.type);
-      if (!a) {console.warn(`Service "${service.type}" isn't displayed`); return;}
-      a.href = service.link;
-      a.title = service.longdesc;
-      let span = a.querySelector('span');
-      if (span) span.textContent = service.shortdesc;
-    })));
+    map("#details", group.details);
+    map("#pp-status", group["pp-status"]);
+    group.chairs.then(data => map("#chairs", data.map(c => individual(c)).reduce(format)));
+    group["team-contacts"].then(data => map("#team-contacts", data.map(c => individual(c)).reduce(format)));
     group["active-charter"].then(data => map("#active-charter", data.uri));
+    group["active-charter"].then(data => map("#active-charter", `from ${data.start} to ${data.end}`));
+    map("#status", (group["is-closed"])? "closed" : "open" );
+    group.participations.then(data => map("#participations", data.map(c => c.title).reduce(format)));
+    group["specifications"]
+    .then(data => data.forEach(spec => {
+      const dl = document.getElementById("specs");
+      spec["latest-version"].then(latest => {
+        if (latest.status !== "Retired") {
+          let dt = document.createElement("dt");
+          let dd = document.createElement("dd");
+          dt.innerHTML = `<a href='${spec.shortlink}'>${spec.title}</a>`;
+          let text = `Status: ${latest.status}`;
+          text += `<br>Last update: ${latest.date}`;
+          if (spec.milestones) {
+            let stones = Object.entries(spec.milestones).map(s => s[0] + " " + s[1]);
+            if (stones.length > 0) {
+              text += `<br>Milestones: <a href="${group["dashboard"].href}">`;
+              text += stones.reduce(format);
+              text += "</a>"
+            }
+          }
+          dd.innerHTML = text;
+          dl.appendChild(dt);
+          dl.appendChild(dd);
+        }});
+      }));
+
+    group["services"].then (data => {
+      const services = document.getElementById("services");
+      let html = "<dl>";
+      data.forEach(service => {
+        let linkDesc = service.type;
+        if (linkDesc === "other") linkDesc = service.shortdesc;
+        html += `<dt><a href="${service.link}">${linkDesc}</a></dt>`;
+        if (service.longdesc) {
+          html += `<dd>${service.longdesc}</dd>`;
+        }
+      });
+      services.innerHTML = html + "</dl>";
+    });
     group["repositories"].then(repos =>
      repos.filter(repo => (repo.hasRecTrack || repo.hasNote))
      .forEach(repo => {
-      const ul = document.getElementById("drafts");
-      let li = document.createElement("li");
+      const dl = document.getElementById("repositories");
+      let dt = document.createElement("dt");
+      let dd = document.createElement("dd");
       var link = (repo.homepageUrl)? repo.homepageUrl : `https://${repo.owner.login}.github.io/${repo.name}/`;
       var desc = (repo.description)? repo.description : repo.fullName;
-      let text = `<a href='${link}'>${desc}</a>`;
+      dt.innerHTML = `<a href="https://github.com/${repo.owner.login}/${repo.name}/"'>${desc}</a>`;
+      let type = repo.w3c["repo-type"];
+      let text = `Type: ${type}`;
+      if (repo.homepageUrl) {
+        text += `<br>See <a href="${repo.homepageUrl}">homepage</a>`;
+      }
       if (repo.issues) {
         let openIssues = repo.issues.filter(i => i.state === "open" && !i.isPullRequest);
         let openPRs = repo.issues.filter(i => i.state === "open" && i.isPullRequest);
-        text += `<br><small>(<a href="https://github.com/${repo.owner.login}/${repo.name}/issues">`
+        text += `<br><a href="https://github.com/${repo.owner.login}/${repo.name}/issues">`
             + `${openIssues.length} `
             + `issues</a>, <a href="https://github.com/${repo.owner.login}/${repo.name}/pull">`
             + `${openPRs.length} `
-            + "PRs</a>)</small>"
+            + "PRs</a>"
+
       }
-      li.innerHTML = text;
-      ul.appendChild(li);
+      dd.innerHTML = text;
+      dl.appendChild(dt);
+      dl.appendChild(dd);
     }));
   }
   let query = groupInfo(GROUPID);
@@ -84,61 +118,53 @@
     <script async src="./newsfeed.js"> </script>
   </head>
   <body onload="query.then(_renderGroup).catch(console.error)">
-    <header>
-      <nav>
-        <ul>
-          <li><a href="https://www.w3.org/standards/">Standards</a></li>
-          <li><a href="https://www.w3.org/participate/">Participate</a></li>
-          <li><a href="https://www.w3.org/Consortium/membership">Membership</a></li>
-          <li><a href="https://www.w3.org/Consortium/">About W3C</a></li>
-        </ul>
-      </nav>
-    </header>
-
     <main>
-      <nav>
-        <h3>Getting involved</h3>
-        <ul>
-          <li><a
-          href="https://github.com/orgs/w3c/teams/distributed-tracing/repositories">Github
-          Organisation</a></li>
-          <li><a id=lists href="@">Mailing list</a></li>
-          <li><a id=chat href="@">We're on <span></span></a></li>
-          <li><a href="https://www.w3.org/Consortium/cepc/">Code of Conduct</a></li>
-        </ul>
-        <h3>Editor's drafts</h3>
-        <ul id='drafts'>
-        </ul>
-        <h3>Published Technical Reports</h3>
-        <ul id='specs'>
-        </ul>
-        <h3>Testing</h3>
-        <ul>
+      <section id='content'>
+        <h1 class="title" id='name'>@@</h1>
+
+        <dl>
+          <dt>Mission</dt>
+          <dd id='description'></dd>
+          <dt>Contacts</dt>
+          <dd>
+            <dl>
+              <dt>Chairs</dt>
+              <dd id='chairs'></dd>
+              <dt>Team Contacts</dt>
+              <dd id='team-contacts'></dd>
+            </dl>
+          </dd>
+          <dt>Charter</dt>
+          <dd><a id='active-charter'>@@</a></dd>
+          <dt>Status</dt>
+          <dd id='status'>@@</dd>
+          <dt>Participants</dt>
+          <dd id='participations'></dd>
+          <dd>[<a id='join' href="@">Join the Group</a>]
+            [<a id='details' href="@">Detailed list of Participants</a>]</dd>
+          <dt>W3C Patent Policy</dt>
+          <dd>See <a id='pp-status' href="@">IPP status</a></dd>
+          <dt>Services</dt>
+          <dd id='services'></dd>
+        <dt>Repositories</dt>
+        <dd>
+          <dl id='repositories'>
+          </dl>
+        </dd>
+        <dt>Published Technical Reports</dt>
+        <dd><dl id='specs'>
+        </dl></dd>
+        <dt>Testing</dt>
+        <dd><ul>
           <li><a href="http://testthewebforward.org/docs/">How to</a></li>
           <li><a href='https://github.com/web-platform-tests/wpt/'>Test Suites</a></li>
-        </ul>
-        <h3>Group details</h3>
-        <ul>
-          <li><a id=active-charter href="@">Our Charter</a></li>
-          <li><a id=join href="@">How to Join?</a></li>
-          <li><a id=participants href="@">Participants</a></li>
-          <li><a id=ipp href="@">Royalty-free Patent Policy</a></li>
-        </ul>
-      </nav>
+        </ul></dd>
+      </dl>
 
-      <section id='content'>
-        <h1 class="title">@@</h1>
+      </section>
 
-        <section id="mission">
-          <h2>Our Mission</h2>
-          <p id='description'>@@</p>
-        </section>
-
-        <p id='chairs'>The Chairs of the Working Group are <span>@@</span>.</p>
-        <p id='team-contacts'>The Team Contact of the Working Group is <span>@@</span>.</p>
-        <p id='participations'>The participants of the Working Group are <span>@@</span>.</p>
-
-        <section id='articles'>
+      <aside>
+          <section id='articles'>
             <article class="line">
               <h3>Trace-Context and the road toward trace tool interoperability</h3>
               <p>
@@ -155,25 +181,13 @@
 
 -->
         </section>
-      </section>
-
-      <aside>
-        <h2>What is the Distributed Tracing?</h2>
-        <ul>
-          <li>A way to propagate tracing information across tiers instrumented with different tracing tools
-          </li>
-          <li>A format to share trace data &mdash; full traces or fragments of traces &mdash; across tools for further interpretation
-        </li>
-        </ul>
       </aside>
 
     </main>
 
     <footer>
-      <address>
-        <a id=repository href="@">We are on <span></span></a></address>
       <p id="copyright">
-        <a href="https://www.w3.org/">W3C</a> - <a href="https://www.w3.org/Consortium/Legal/privacy-statement">Privacy</a> - <a href='http://www.w3.org/Consortium/Legal/ipr-notice'>Terms</a>
+        <a href="https://www.w3.org/">W3C</a> - <a href="https://www.w3.org/Consortium/Legal/privacy-statement">Privacy</a> - <a href='http://www.w3.org/Consortium/Legal/ipr-notice'>Terms</a> - <a href="https://www.w3.org/Consortium/cepc/">Code of Conduct</a>
       </p>
     </footer>
   </body>

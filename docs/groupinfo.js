@@ -60,7 +60,6 @@ async function groupInfo(groupId) {
   group["details"] = `https://www.w3.org/2000/09/dbwg/details?group=${groupId}&order=org&public=1`;
   group["edit"] = `https://www.w3.org/2011/04/dbwg/group-services?gid=${groupId}`;
 
-  // the spec-dashboard contains issues and milestones, so let's add it
   group["dashboard"] = {
     href: `https://w3c.github.io/spec-dashboard/?${groupId}`,
     repositories: getData(`https://w3c.github.io/spec-dashboard/pergroup/${groupId}-repo.json`),
@@ -105,6 +104,14 @@ async function groupInfo(groupId) {
       })
       return specs;
     })
+  });
+
+  // annotate with latest status
+  group["specifications"] = group["specifications"].then(specs => {
+    specs.forEach(spec => {
+      spec["latest-version"].then(latest => {spec.status = latest.status});
+    })
+    return specs;
   });
 
 
