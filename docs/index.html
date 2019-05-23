@@ -84,8 +84,7 @@
       services.innerHTML = html + "</dl>";
     });
     group["repositories"].then(repos =>
-     repos.filter(repo => (repo.hasRecTrack || repo.hasNote))
-     .forEach(repo => {
+     repos.forEach(repo => {
       const dl = document.getElementById("repositories");
       let dt = document.createElement("dt");
       let dd = document.createElement("dd");
