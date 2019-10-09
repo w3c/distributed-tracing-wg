@@ -34,6 +34,7 @@ Overview of team related communication channels:
   [w3cdistributedtracing.slack.com](http://bit.ly/w3c-disttracing).
 - Public Google calendar for all meetings and events [Google
   Calendar](https://calendar.google.com/calendar/embed?src=dynatrace.com_5a09qhua6fh7jb23h7vdjg6veg%40group.calendar.google.com).
+- Starting with 2019-08-27 meeting notes can be found [here](https://docs.google.com/document/d/12AAIbnkt_AH1YjZwUwxirX_7WA7aWOSXpDweCgfqIiQ/edit?usp=sharing). Older notes can be found in this repo under [meeting_notes](./meeting_notes).
 - Recordings of previous meetings can be found [here](https://drive.google.com/drive/folders/1MQ-XnXVGjux2KH7FPp7mFGRDZHCx_HMH?usp=sharing)
 
 We appreciate feedback and contributions. Please make sure to read rationale documents when you have a question about particular
