@@ -31,7 +31,7 @@ Overview of team related communication channels:
 - Mailing List for general discussions. Please subscribe to
   [public-trace-context@w3.org](http://lists.w3.org/Archives/Public/public-trace-context/).
 - **New** Slack channel to reach the team:
-  [w3cdistributedtracing.slack.com](http://bit.ly/w3c-disttracing).
+  [w3cdistributedtracing.slack.com](https://w3cdistributedtracing.slack.com).
 - Public Google calendar for all meetings and events [Google
   Calendar](https://calendar.google.com/calendar/embed?src=dynatrace.com_5a09qhua6fh7jb23h7vdjg6veg%40group.calendar.google.com).
 - Starting with 2019-08-27 meeting notes can be found [here](https://docs.google.com/document/d/12AAIbnkt_AH1YjZwUwxirX_7WA7aWOSXpDweCgfqIiQ/edit?usp=sharing). Older notes can be found in this repo under [meeting_notes](./meeting_notes).
