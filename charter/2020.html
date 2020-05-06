@@ -215,12 +215,12 @@
             <dd>
               <p>This specification is the update of <a href="https://www.w3.org/TR/trace-context-1/">Trace Context 1</a> which
                 defines headers and a value format to propagate context information that enables distributed tracing scenarios.
-                This update is intended to include a mechanism to carry context information in
-                <a href='https://w3c.github.io/trace-context/#trace-context-http-request-headers-format'>protocol responses</a>, thus
-                allowing context information to be accessed in Web browsers. The Group will address privacy considerations related to
-                <a href='https://www.w3.org/TR/fingerprinting-guidance/'>fingerprinting</a> and
-                <a href='https://www.w3.org/TR/security-privacy-questionnaire/#underlying-platform-data'>exposing identifiers</a>, in particular
-                whether user consent should be required.
+                The revision must define mechanisms that mitigate both <a href='https://www.w3.org/TR/fingerprinting-guidance/'>fingerprinting</a>
+                and other <a href='https://www.w3.org/TR/security-privacy-questionnaire/'>privacy risks</a> exposed by
+                Trace Context. If the mitigations include explicit or implicit user consent, as anticipated, the WG will define any
+                necessary protocol elements for seeking that consent and formulate mechanisms for constraining the requests and resultant
+                consent to the least-invasive possible form (e.g. listing specific domains or even hosts, as well as temporally limiting
+                the permission consistent with the use case).
               </p>
                 <p class="draft-status">
                   <b>Draft state:</b>
