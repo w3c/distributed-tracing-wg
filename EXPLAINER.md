@@ -110,13 +110,3 @@ Using proprietary ways of context propagation, vendors could always encode
 information that contains user identifyable data.
 Today, baggage is used to add information like a marker to distinguish transactions for
 a/b testing.
-
-
-
-TODO: sequence diagram
-
-TODO: make tracestate example more concise if possible
-
-
-
-## Open Questions
