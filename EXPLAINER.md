@@ -1,4 +1,4 @@
-# Trace Context
+# Distributed Tracing Working Group
 
 ## What is it?
 
