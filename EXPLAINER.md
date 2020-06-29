@@ -42,7 +42,7 @@ The tracestate header is a request header which allows a tracing platform to tra
 ### Trace Response header
 
 We also propose a response header which can be used to report a trace ID back to the caller to
-- report back a new trace ID in case the callee, ignored the existing headers but started a new trace
+- report back a new trace ID in case the callee ignored the existing headers but started a new trace
 - let proxies delegate sampling decisions to the caller
 - allow tail-based sampling, where a sampling decision is deferred until a request is completed and all information pertinent to the sampling decision is known
 - to correlate the initial page load of a browser and all subsequent requests to a server side trace
@@ -96,8 +96,7 @@ Using proprietary ways of trace context propagation, vendors could always encode
 information that contains user identifyable data.
 The spec, on the other hand introduces [clear and strict privacy constraints](https://www.w3.org/TR/trace-context/#privacy-of-traceparent-field) that
 forbid encoding user identifyable data.
-As such, the standard restricts techniques that would be valid in proprietary trace context propagation solutions and leads
-to better overall privacy awareness in the industry.
+As such, the standard restricts techniques that would be valid in proprietary trace context propagation solutions and leads to better overall privacy awareness in the industry.
 
 ### Can a response header returned to the browser be used to identify users?
 Again, proprietary implementations already use different ways to solve this problem.
@@ -112,7 +111,5 @@ ID sent back to the browser.
 
 ### Can baggage be used to identify users?
 Using proprietary ways of context propagation, vendors and application developers could always encode information that contains user identifyable data.
-Today, baggage is used to add information like a marker to distinguish transactions for
-a/b testing or a member status to enable features like QoS routing for dedicated transactions.
 By standardizing this header, it will be possible to restrict propagation of baggage
 when trust boundaries are crossed. This is not possible if each vendor uses their own proprietary headers.
