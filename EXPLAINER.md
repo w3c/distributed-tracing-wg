@@ -2,7 +2,7 @@
 
 ## What is it?
 
-We propose a set of HTTP headers which propagate a distributed trace, even when a request and its associated trace is served by multiple tracing providers.
+We propose a set of HTTP headers which propagate a distributed trace and associated data, even when a request and its associated trace is served by multiple tracing providers.
 
 ## Why do we care?
 
