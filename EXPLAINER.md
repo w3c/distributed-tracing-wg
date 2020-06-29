@@ -4,6 +4,8 @@
 
 We propose a set of HTTP headers which propagate a distributed trace and associated data, even when a request and its associated trace is served by multiple tracing providers.
 
+![Trace Context Propagation](./assets/explainer_all_in_one.png "Trace Context Propagation")
+
 ## Why do we care?
 
 Because there is no standardized way to propagate a trace, each tracing vendor has to create their own method of propagating tracing information. Typically this is in the form of a custom HTTP header. If an application request which is traced by one system flows through a system which is not traced using the same tracing platform, the headers may not be correctly propagated and the trace may be broken.
@@ -72,7 +74,7 @@ Common use cases are
 ### Context propagation with W3C Trace Context
 1. Service A calls Service B through an API gateway
 2. The tracing system uses the W3C Trace Context header
-3. The API gateway operates standard compliant
+3. The API gateway recognizes the headers as standards-compliant and allows them through
 4. Service C receives the trace ID and continues the trace
 
 ![Context propagation through a standard compliant middleware](./assets/explainer_context_preserved.png "Context propagation through a standard compliant middleware")
