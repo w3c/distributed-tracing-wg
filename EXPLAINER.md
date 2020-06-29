@@ -50,8 +50,13 @@ We also propose a response header which can be used to report a trace ID back to
 ### Baggage
 
 The baggage header is used to propagate properties not defined in trace parent.
-There are two common use cases. First is to define a context on trace initiation.
-Such context will have customer's identity, high-level operation name and other properties like a flight name.
+
+Common use cases are
+
+* Defining an application specific context such as a member status on a trace
+* Adding a marker for a/b testing
+* Passing the callers name to the next component
+
 
 ## Examples
 
@@ -106,7 +111,8 @@ Consequently, reloading a page would result in a new request and a new, random t
 ID sent back to the browser.
 
 ### Can baggage be used to identify users?
-Using proprietary ways of context propagation, vendors could always encode
-information that contains user identifyable data.
+Using proprietary ways of context propagation, vendors and application developers could always encode information that contains user identifyable data.
 Today, baggage is used to add information like a marker to distinguish transactions for
-a/b testing.
+a/b testing or a member status to enable features like QoS routing for dedicated transactions.
+By standardizing this header, it will be possible to restrict propagation of baggage
+when trust boundaries are crossed. This is not possible if each vendor uses their own proprietary headers.
