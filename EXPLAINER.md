@@ -4,6 +4,10 @@
 
 We propose a set of HTTP headers which propagate a distributed trace and associated data, even when a request and its associated trace is served by multiple tracing providers.
 
+These headers can also be propagated by systems that are not monitored but still need to participate in the trace to allow end-to-end tracing.
+
+We further propose a header that can be used by tracing systems, cloud providers as well as application developers to propagate opaque properties between tiers.
+
 ![Trace Context Propagation](./assets/explainer_all_in_one.png "Trace Context Propagation")
 
 ## Why do we care?
@@ -23,10 +27,7 @@ Because there is no standardized way to propagate a trace, each tracing vendor h
 ## Concepts
 
 ### Distributed Trace
-A distributed trace is the directed acyclic graph which represents a single operation, request, or user action, where each node in the graph is a span.
-
-### Span
-A span is a single operation within a distributed trace. For example, if a trace represents a user clicking on "Checkout," the request from the client to the server would be a single span, each request made by that server to other services would be a span, each database request would be a span, and so on.
+A distributed trace is a set of events, triggered as a result of a single logical operation, consolidated across various components of an application. A distributed trace contains events that cross process, network and security boundaries. A distributed trace may be initiated when someone presses a button to start an action on a website - in this case, the trace will represent calls made between the downstream services that handled the chain of requests initiated by this button being pressed.
 
 ### Trace Flags
 Trace flags communicate information about the trace to remote tracing systems. Currently, the only information transmitted with the trace is whether or not a particular request is "sampled," or captured by a tracing system.
