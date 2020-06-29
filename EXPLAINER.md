@@ -10,7 +10,7 @@ Because there is no standardized way to propagate a trace, each tracing vendor h
 
 ## Goals
 
-- To provide a way in which heterogeneous architectures with multiple tracing platforms to operate in concert with each other
+- To provide a standard mechanism to propagate shared context across various architecture components so that multiple tracing platforms can be used in concert with each other.
 - To provide a method for application developers to trace requests without invading users' privacy
 
 ## Non-goals
