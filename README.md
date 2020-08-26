@@ -20,7 +20,7 @@ Specification for distributed tracing context propagation format:
 - Correlation Context
   [Report](https://w3c.github.io/correlation-context/).
   Status: editor draft.
-- Working group [charter](https://www.w3.org/2018/07/distributed-tracing.html) (as of working group creation).
+- Working group [charter](https://www.w3.org/2020/08/distributed-tracing-wg-charter.html) ([previous charter](https://www.w3.org/2018/07/distributed-tracing.html))
 - Original [community group](https://www.w3.org/community/trace-context/).
 
 ## Team Communication
