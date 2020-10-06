@@ -8,18 +8,17 @@ This is why you should join this [working group](WELCOME.md).
 
 ## Specs
 
-Specification for distributed tracing context propagation format:
+Specification for distributed tracing context propagation formats:
 
-- Trace Context
-  [Report](https://w3c.github.io/trace-context/).
-  Status: [Candidate Recommendation](https://www.w3.org/2017/Process-20170301/#candidate-recommendation).
+- [Trace Context](https://w3c.github.io/trace-context/)
+  (Status: [Candidate Recommendation](https://www.w3.org/2017/Process-20170301/#candidate-recommendation))
   - Rationale [document](https://github.com/w3c/trace-context/blob/master/spec/21-http_header_format_rationale.md)
   - [Github Repo](https://github.com/w3c/trace-context)
   - Changes are tracked on GitHub, communicated in meetings and e-mails
     distribution list.
-- Correlation Context
-  [Report](https://w3c.github.io/correlation-context/).
-  Status: editor draft.
+- [Propagation format for distributed trace context: Baggage](https://w3c.github.io/baggage/)
+  (Status: Editor's Draft)
+  - [Github Repo](https://github.com/w3c/baggage)
 - Working group [charter](https://www.w3.org/2020/08/distributed-tracing-wg-charter.html) ([previous charter](https://www.w3.org/2018/07/distributed-tracing.html))
 - Original [community group](https://www.w3.org/community/trace-context/).
 
