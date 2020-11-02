@@ -15,7 +15,7 @@ This working group is working on the following specifications:
 - [Trace Context Level-1](https://www.w3.org/TR/trace-context-1/)
   (Status: [W3C recomendaton](https://www.w3.org/2017/Process-20170301/#rec-publication))
 - [Trace State Ids Registry](https://github.com/w3c/trace-state-ids-registry).
-- [Trace Context Level-2](https://www.w3.org/TR/trace-context-1/)
+- [Trace Context Level-2](https://www.w3.org/TR/trace-context/)
   (Status: Editor's draft)
   - Rationale [document](https://github.com/w3c/trace-context/blob/master/http_header_format_rationale.md)
   - [Github Repo](https://github.com/w3c/trace-context)
