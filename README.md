@@ -28,8 +28,7 @@ This working group is working on the following specifications:
 - [Baggage: Propagation format for user fields](https://www.w3.org/TR/baggage/)
   (Status: [First Public Working Draft](https://www.w3.org/2017/Process-20170301/#first-wd))
   - [Github Repo](https://github.com/w3c/baggage)
-  - Rationale
-[document](https://github.com/w3c/baggage/blob/master/baggage/HTTP_HEADER_FORMAT_RATIONALE.md) for
+  - Rationale [document](https://github.com/w3c/baggage/blob/master/baggage/HTTP_HEADER_FORMAT_RATIONALE.md) for
 clarifications on decisions made.
 
 ## Team Communication
