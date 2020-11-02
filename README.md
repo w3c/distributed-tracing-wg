@@ -8,7 +8,7 @@ This is why you should join this [working group](WELCOME.md).
 
 ## Specs
 
-Read the [Working Group charter](https://www.w3.org/2020/08/distributed-tracing-wg-charter.html). This group was originated from [community group](https://www.w3.org/community/trace-context/).
+Read the [Working Group charter](https://www.w3.org/2020/08/distributed-tracing-wg-charter.html). This group originates from the [community group](https://www.w3.org/community/trace-context/).
 
 This working group is working on the following specifications:
 
