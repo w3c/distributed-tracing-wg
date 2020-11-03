@@ -1,9 +1,9 @@
 # Governance and Contribution to the Distributed Tracing working group
 
-This document describes the contribution and governance rules for the [W3C Distributed Tracing Working Group](https://www.w3.org/2018/distributed-tracing/). This includes the following specifications
+This document describes the contribution and governance rules for the [W3C Distributed Tracing Working Group](https://www.w3.org/2018/distributed-tracing/). This includes the following specifications:
 
 - [Trace Context](https://github.com/w3c/trace-context)
-- [Correlation Context](https://github.com/w3c/correlation-context)
+- [Baggage](https://github.com/w3c/baggage)
 
 ## Interacting with the working group
 
