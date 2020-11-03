@@ -8,19 +8,28 @@ This is why you should join this [working group](WELCOME.md).
 
 ## Specs
 
-Specification for distributed tracing context propagation formats:
+Read the [Working Group charter](https://www.w3.org/2020/08/distributed-tracing-wg-charter.html). This group originates from the [community group](https://www.w3.org/community/trace-context/).
 
-- [Trace Context](https://w3c.github.io/trace-context/)
-  (Status: [Candidate Recommendation](https://www.w3.org/2017/Process-20170301/#candidate-recommendation))
-  - Rationale [document](https://github.com/w3c/trace-context/blob/master/spec/21-http_header_format_rationale.md)
+This working group is working on the following specifications:
+
+- [Trace Context Level-1](https://www.w3.org/TR/trace-context-1/)
+  (Status: [W3C Recommendation](https://www.w3.org/2017/Process-20170301/#rec-publication))
+- [Trace State Ids Registry](https://github.com/w3c/trace-state-ids-registry).
+- [Trace Context Level-2](https://www.w3.org/TR/trace-context/)
+  (Status: Editor's draft)
+  - Rationale [document](https://github.com/w3c/trace-context/blob/master/http_header_format_rationale.md)
   - [Github Repo](https://github.com/w3c/trace-context)
   - Changes are tracked on GitHub, communicated in meetings and e-mails
     distribution list.
-- [Propagation format for distributed trace context: Baggage](https://w3c.github.io/baggage/)
-  (Status: Editor's Draft)
+- [Trace Context Protocols Registry](https://w3c.github.io/trace-context-protocols-registry/)
+  - [Trace Context: binary](https://w3c.github.io/trace-context-binary/)
+  - [Trace Context: AMQP protocol](https://w3c.github.io/trace-context-amqp/)
+  - [Trace Context: MQTT protocol](https://w3c.github.io/trace-context-mqtt/)
+- [Baggage: Propagation format for user fields](https://www.w3.org/TR/baggage/)
+  (Status: [First Public Working Draft](https://www.w3.org/2017/Process-20170301/#first-wd))
   - [Github Repo](https://github.com/w3c/baggage)
-- Working group [charter](https://www.w3.org/2020/08/distributed-tracing-wg-charter.html) ([previous charter](https://www.w3.org/2018/07/distributed-tracing.html))
-- Original [community group](https://www.w3.org/community/trace-context/).
+  - Rationale [document](https://github.com/w3c/baggage/blob/master/baggage/HTTP_HEADER_FORMAT_RATIONALE.md) for
+clarifications on decisions made.
 
 ## Team Communication
 
@@ -38,25 +47,6 @@ Overview of team related communication channels:
 
 We appreciate feedback and contributions. Please make sure to read rationale documents when you have a question about particular
 decision made in specification.
-
-## Goal
-
-This specification defines formats to pass trace context information across systems. Our goal is
-to share this with the community so that various tracing and diagnostics products can operate
-together.
-
-- If this becomes popular, frameworks and other services will automatically pass
-  trace IDs through for correlated requests. This would prevent traces from
-  hitting dead ends when a request reaches an un-instrumented service.
-- Once aligned on a header name, we can ask for a CORS exception from the W3C.
-  This would allow browsers to attach trace IDs to requests and submit tracing
-  data to a distributed tracing service.
-- Loggers can reliably parse trace / span IDs and include them in logs for
-  correlation purposes.
-- Customers can use multiple tracing solutions (Zipkin + New Relic) at the same
-  time and not have to worry about propagating two sets of context headers.
-- Frameworks can *bless* access to the trace context even if they prevent access
-  to underlying request headers, making it available by default.
 
 ## Contributing
 
