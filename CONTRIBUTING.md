@@ -43,6 +43,9 @@ Specificaiton changes are proposed via PRs which are expected to meet the follow
 - The author of the PR indicates that it is ready setting a "ready to review" tag for review by asking for it to be discussed in an upcoming meeting - eg. by adding it to the agenda document.
 - All comments have been addressed.
 - PRs that have objections/concerns will be discussed in dedicated by interested parties. A resolution, updated PR, will be expected from those talks.
+- PRs conform to all styles in [STYLE.md](STYLE.md).
+  Exceptions should be approved by working group members on the pull request review.
+  Exceptions which are not obvious should be documented by a comment.
 
 Every member of the working group is encouraged to vote with a statement of support and dissent on any PR. If a member has concerns regarding a PR they are encouraged to comment on the issue and join in discussions. If a member does reply to a comment within a reasonable timeframe - one business week - the comment is considered properly addressed. 
 
