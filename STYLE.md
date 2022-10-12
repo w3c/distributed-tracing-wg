@@ -29,9 +29,8 @@ and has a line break after a comma in order to keep line lengths reasonable.
 
 ## Referencing external RFCs
 
-I personally like the regular markdown link syntax. The linked RFC is still included in the bibliography and it reads more naturally to me. It is much easier to link [RFC0000 Section x.y](https://link.to.rfc) than to read a full URL and linking only to the bibliography is annoying for the user who clicks the link to go to the section referenced.
-
-When referencing an external document such as an RFC, a markdown link of the form `[RFC0000 Section x.y](https://link.to.rfc/section)` should be used.
+When referencing an external document such as an RFC,
+a markdown link of the form `[RFC0000 Section x.y](https://link.to.rfc/section)` should be used.
 Note that the link includes the RFC number and relevant section.
 
 Example:
