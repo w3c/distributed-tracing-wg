@@ -37,10 +37,15 @@ Values can be combined in a single header according to [RFC 7230 Section 3.2.2](
 
 ## Referencing fields
 
-When referencing a field which is defined in the same document, a markdown link of the form ```[`field-name`](#field-definition)``` should be used where `field-name` is the name of the field and `#field-definition` is the HTML anchor of the heading where the field is defined.
+Field names are generally lower case.
+Fields names consisting of multiple words should be written in kebab case (e.g. `span-id`).
+Use code markup (markdown backticks) when referring to field names.
+When referring to the concept which the field name represents, such as Span ID in the case of `span-id`, title case should be used.
+Do not use code markup or kebab case when referring to a general concept instead of a specific field name.
 
 Example:
 
 ```markdown
-In some tracing systems, this is known as the [`span-id`](#span-id), where a `span` is the execution of a client request.
+Some tracing systems contain an identifier for a given operation called a Span ID.
+The field [`span-id`](#span-id) refers to this identifier.
 ```
