@@ -1,7 +1,8 @@
 # Distributed Tracing Working Group Style Guide
 
 This document describes the editorial style preferred by the W3C Distributed Tracing Working Group.
-Where possible and appropriate, the rules in this document should be followed when making pull requests to repositories maintained by the working group.
+This document should be considered supplemental to the [W3C Manual of Style](https://www.w3.org/Guide/manual-of-style/).
+In general, the rules there should be followed unless otherwise stated in this document.
 If a rule is not appropriate or possible in context, it may be acceptable to break the rule with the consent of the working group members reviewing a pull request.
 If it is not obvious why a rule is broken, a comment should be made in the document describing the reason.
 
