@@ -23,6 +23,7 @@ Because there is no standardized way to propagate a trace, each tracing vendor h
 - Identification of individual users or user sessions
 - Definition of (programming) language specific APIs for performance data collection
 - Performance data analysis techniques or algorithms
+- Web Browsers as a target implementation for this specification
 
 ## Concepts
 
@@ -30,7 +31,7 @@ Because there is no standardized way to propagate a trace, each tracing vendor h
 A distributed trace is a set of events, triggered as a result of a single logical operation, consolidated across various components of an application. A distributed trace contains events that cross process, network and security boundaries. A distributed trace may be initiated when someone presses a button to start an action on a website - in this case, the trace will represent calls made between the downstream services that handled the chain of requests initiated by this button being pressed.
 
 ### Trace Flags
-Trace flags communicate information about the trace to remote tracing systems. Currently, the only information transmitted with the trace is whether or not a particular request is "sampled," or captured by a tracing system.
+Trace flags communicate information about the trace to remote tracing systems. For example, this can include information transmitted with the trace such as whether or not a particular request is "sampled," or captured by a tracing system.
 
 ## Headers
 
@@ -48,7 +49,6 @@ We also propose a response header which can be used to report a trace ID back to
 - report back a new trace ID in case the callee ignored the existing headers but started a new trace
 - let proxies delegate sampling decisions to the caller
 - allow tail-based sampling, where a sampling decision is deferred until a request is completed and all information pertinent to the sampling decision is known
-- to correlate the initial page load of a browser and all subsequent requests to a server side trace
 
 ### Baggage
 
@@ -80,12 +80,10 @@ Common use cases are
 
 ![Context propagation through a standard compliant middleware](./assets/explainer_context_preserved.png "Context propagation through a standard compliant middleware")
 
-### Response header used to correlate a browser request
-1. The browser does an initial request (page load)
-2. Service A starts the trace and sends back a response header that identifies the root span
-3. The browser uses this information to provide a trace ID for all subsequent requests within this one load cycle
-
-![Context propagation for browsers via response header](./assets/explainer_browser_responseheader.png "Context propagation for browsers via response header")
+### Response header used to correlate a request from a client application running in a web browser
+1. The client application running in a browser does an initial XHR request to a service.
+2. Service A starts the trace and sends back a response header that identifies the root span.
+3. The client application running in the browser uses this information to provide a trace ID for all subsequent requests.
 
 ## Privacy
 The introduction of a trace ID and response headers, naturally raises privacy concerns.
@@ -101,16 +99,15 @@ The spec, on the other hand introduces [clear and strict privacy constraints](ht
 forbid encoding user identifyable data.
 As such, the standard restricts techniques that would be valid in proprietary trace context propagation solutions and leads to better overall privacy awareness in the industry.
 
-### Can a response header returned to the browser be used to identify users?
+### Can a response header returned to an application running in the browser be used to identify users?
 Again, proprietary implementations already use different ways to solve this problem.
 Namely, the same can be achieved by:
-- encoding an ID into the payload returned to the browser
+- encoding an ID into the payload returned to the client application running in the browser
 - encoding an ID into server response timings
 
 The intent of the standard is not to identify individual users but to provide a way
 to tie frontend traces to backend traces to monitor performance.
-Consequently, reloading a page would result in a new request and a new, random trace
-ID sent back to the browser.
+Consequently, reloading a page would result in a new request from the client application and a new, random trace ID sent back to it.
 
 ### Can baggage be used to identify users?
 Using proprietary ways of context propagation, vendors and application developers could always encode information that contains user identifyable data.
