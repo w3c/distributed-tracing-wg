@@ -1,115 +1,108 @@
 # Distributed Tracing Working Group
 
-## What is it?
+## Introduction
+The Distributed Tracing Working Group currently drives the standardization of two specifications:
 
-We propose a set of HTTP headers which propagate a distributed trace and associated data, even when a request and its associated trace is served by multiple tracing providers.
+- W3C TraceContext
+- W3C Baggage
 
-These headers can also be propagated by systems that are not monitored but still need to participate in the trace to allow end-to-end tracing.
+Let's dive more into what these specifications cover and the need for them.
 
-We further propose a header that can be used by tracing systems, cloud providers as well as application developers to propagate opaque properties between tiers.
+## W3C TraceContext
+
+### What is W3C TraceContext?
+The W3C TraceContext specification defines a universally agreed upon format to propagate trace context data. It specifies standard HTTP headers and standard value formats. It also defines a mechanism to forward vendor-specific trace data.
+
+These headers can also be propagated by systems that are not monitored but still need to participate in the trace to allow end-to-end tracing. The target implementation for the current version of the specification is applications and services; browsers/user-agents are not in scope.
 
 ![Trace Context Propagation](./assets/explainer_all_in_one.png "Trace Context Propagation")
 
-## Why do we care?
+### What problem does it solve: Improving the Observability of complex distributed systems
+Understanding what is happening in a complex distributed system can be a challenge.
 
-Because there is no standardized way to propagate a trace, each tracing vendor has to create their own method of propagating tracing information. Typically this is in the form of a custom HTTP header. If an application request which is traced by one system flows through a system which is not traced using the same tracing platform, the headers may not be correctly propagated and the trace may be broken.
+In a complex distributed system, a single logical operation can involve work done by hundreds of participants. When an operation is delayed or encountered an error in such a system, you want to get to one logical explanation of what is happening to that operation. But the distributed nature of this system makes it a challenge. Sure, each participant will have its own view of how it handled its request in the context of the overall operation.
 
-## Goals
+But how do you tie them all together to understand what is happening? More generally, how do we gain the ability to answer questions about a system to understand it better: who all participated in handling an operation? What is the critical path? Where do failures happen? What characteristics did orders that took more than 20 minutes have in common? What are the performance trends over time? What are the reliability trends over time?
 
-- To provide a standard mechanism to propagate shared context across various architecture components so that multiple tracing platforms can be used in concert with each other.
-- To provide a method for application developers to trace requests without invading users' privacy
+You should be able to ask any such question and get answers. This specification helps improve the Observability of systems in an open and vendor-neutral way.
 
-## Non-goals
-- Identification of individual users or user sessions
-- Definition of (programming) language specific APIs for performance data collection
-- Performance data analysis techniques or algorithms
-- Web Browsers as a target implementation for this specification
+### The building blocks needed to tie things together into a "Distributed Trace"
+Let’s look at a few key building blocks needed to tie things together:
 
-## Concepts
+First, we need a way to *uniquely identify a logical operation* flowing through a system.
 
-### Distributed Trace
+We also *need a way for each participant to know* this unique identifier. This is so that each participant can associate what it is doing to handle its part of that operation. But how can each participant know this? One participant would have to first create this identifier, and then it must be somehow “propagated” to the others. This mechanism must be protocol specific: e.g., for HTTP, this must be through a HTTP header.
+
+We also then a *need a way for each participant to emit what it did*. We should be able to uniquely identify (within the scope of a single logical operation) the above unit of work done by each participant.
+
+But the above is not enough: we also need to establish the causality of the work done by different participants. For this, we need a way to capture the parent/child relationships: when a participant calls another, the callee/child needs to know the unique identifier of the caller/parent’s unit of work, so that the child can emit it. How does the child get this? It must be propagated.
+
+If we have all the above, we will gain the ability to connect the dots together.
+
+The set of related events emitted by various participants, triggered by the same logical operation, is called a Distributed Trace. The context that is propagated between the participants is referred to as the “trace context” that includes the identifiers described above.
+
+### Why does it have to be a standard?
+If there is no standardized way to propagate the trace context, each tracing system would have to create its own method. Typically, this would be in the form of a custom HTTP header. If an operation is handled by multiple participants using different tracing systems, such headers will not be propagated between them and the trace will be broken. When this happens, we will not able to reason about the whole system.
+
+To make things interoperable, we need a standard mechanism that everybody can agree to use.
+
+### Goals
+
+- To provide a standard mechanism to propagate shared context across various applications and services so that multiple tracing platforms can be used in concert with each other.
+- To provide a method for application developers to trace requests without invading users' privacy.
+
+### Non Goals
+- Identification of individual users or user sessions.
+- Definition of (programming) language specific APIs for performance data collection.
+- Performance data analysis techniques or algorithms.
+
+### Concepts
+
+#### Distributed Trace
 A distributed trace is a set of events, triggered as a result of a single logical operation, consolidated across various components of an application. A distributed trace contains events that cross process, network and security boundaries. A distributed trace may be initiated when someone presses a button to start an action on a website - in this case, the trace will represent calls made between the downstream services that handled the chain of requests initiated by this button being pressed.
 
-### Trace Flags
-Trace flags communicate information about the trace to remote tracing systems. For example, this can include information transmitted with the trace such as whether or not a particular request is "sampled," or captured by a tracing system.
+##### Headers
 
-## Headers
+###### Traceparent
 
-### Traceparent
+The traceparent header is a request header which contains a trace id, a parent span id, and trace flags. The traceflags includes information such as if a particular request is sampled. When a tracing system transmits a span to the tracing backend, it includes the Trace ID, the span ID, and the parent span ID (if one exists). The tracing backend uses this information to construct the directed acyclic graph which represents the trace. In a system with a single tracing platform, it is the only header necessary to complete a distributed trace.
 
-The traceparent header is a request header which contains a trace id, a parent span id, and trace flags. A tracing system transmits the trace ID, span ID, and the ID of each span's parent span, if it exists, with each span to a tracing backend. The tracing backend uses this information to construct the directed acyclic graph which represents the trace. In a system with a single tracing platform, it is the only header necessary to complete a distributed trace.
+###### Tracestate
 
-### Tracestate
+The tracestate header is a request header which allows a tracing platform to transmit platform-specific information, even through systems that are traced using other tracing platforms. Each tracing platform uses a single key, and the value is treated as an opaque token by other tracing platforms. Each tracing platform is required to forward tracestate keys and values.
 
-The tracestate header is a request header which allows a tracing platform to transmit platform-specific information, even through systems which are traced using other tracing platforms. Each tracing platform uses a single key, and the value is treated as an opaque token by other tracing platforms. Each tracing platform is required to forward tracestate keys and values.
+### Examples
 
-### Trace Response header
-
-We also propose a response header which can be used to report a trace ID back to the caller to
-- report back a new trace ID in case the callee ignored the existing headers but started a new trace
-- let proxies delegate sampling decisions to the caller
-- allow tail-based sampling, where a sampling decision is deferred until a request is completed and all information pertinent to the sampling decision is known
-
-### Baggage
-
-The baggage header is used to propagate properties not defined in trace parent.
-
-Common use cases are
-
-* Defining an application specific context such as a member status on a trace
-* Adding a marker for a/b testing
-* Passing the callers name to the next component
-
-
-## Examples
-
-### Context loss using a proprietary header
+#### Context loss using a proprietary header
 
 1. Service A calls Service B through an API gateway.
 2. The tracing system uses a proprietary header to propagate its trace ID.
-3. The API gateway is not configured to propagate the proprietary header
-4. Service C does not receive a trace ID and context is lost
+3. The API gateway is not configured to propagate the proprietary header.
+4. Service C does not receive a trace ID and context is lost.
 
 ![Context loss due to a middleware](./assets/explainer_context_loss.png "Context loss due to a middleware")
 
-### Context propagation with W3C Trace Context
-1. Service A calls Service B through an API gateway
-2. The tracing system uses the W3C Trace Context header
-3. The API gateway recognizes the headers as standards-compliant and allows them through
-4. Service C receives the trace ID and continues the trace
+#### Context propagation with W3C Trace Context
+1. Service A calls Service B through an API gateway.
+2. The tracing system uses the W3C Trace Context headers.
+3. The API gateway recognizes the headers as standards-compliant and propagates them.
+4. Service C receives the trace ID and continues the trace.
 
 ![Context propagation through a standard compliant middleware](./assets/explainer_context_preserved.png "Context propagation through a standard compliant middleware")
 
-### Response header used to correlate a request from a client application running in a web browser
-1. The client application running in a browser does an initial XHR request to a service.
-2. Service A starts the trace and sends back a response header that identifies the root span.
-3. The client application running in the browser uses this information to provide a trace ID for all subsequent requests.
+## W3C Baggage
 
-## Privacy
-The introduction of a trace ID and response headers, naturally raises privacy concerns.
-In summary it can be said, that everything the standard covers can be accomplished today
-using existing technologies.
-The standard provides an agreed-upon format to enable interoperability and additionally
-adds privacy constraints that didn't exist before.
+### What is W3C Baggage?
+This specification defines a standard for representing and propagating a set of application-defined properties associated with a distributed request or workflow execution.
 
-### Can a propgated trace ID be used to identify individual users?
-Using proprietary ways of trace context propagation, vendors could always encode
-information that contains user identifyable data.
-The spec, on the other hand introduces [clear and strict privacy constraints](https://www.w3.org/TR/trace-context/#privacy-of-traceparent-field) that
-forbid encoding user identifyable data.
-As such, the standard restricts techniques that would be valid in proprietary trace context propagation solutions and leads to better overall privacy awareness in the industry.
+This is independent of the Trace Context specification. Baggage can be used regardless of whether Distributed Tracing is used. This specification standardizes representation and propagation of application-defined properties. In contrast, Trace Context specification standardizes representation and propagation of the metadata needed to enable Distributed Tracing scenarios.
 
-### Can a response header returned to an application running in the browser be used to identify users?
-Again, proprietary implementations already use different ways to solve this problem.
-Namely, the same can be achieved by:
-- encoding an ID into the payload returned to the client application running in the browser
-- encoding an ID into server response timings
+### Why is this needed?
+Applications and libraries can use baggage to attach user-defined properties as part of a distributed request. A framework can automatically propagate this data to downstream services as part of the distributed context. The benefit of the cross-cutting nature of this context propagation means that it doesn't require any changes in the participating services (e.g., to change API signatures) to propagate these parameters.
 
-The intent of the standard is not to identify individual users but to provide a way
-to tie frontend traces to backend traces to monitor performance.
-Consequently, reloading a page would result in a new request from the client application and a new, random trace ID sent back to it.
+There are two main categories of use cases of baggage:
 
-### Can baggage be used to identify users?
-Using proprietary ways of context propagation, vendors and application developers could always encode information that contains user identifyable data.
-By standardizing this header, it will be possible to restrict propagation of baggage
-when trust boundaries are crossed. This is not possible if each vendor uses their own proprietary headers.
+- Use cases that enable better *observability* of a system.
+- Use cases that enable better *control* of a system.
+
+To learn about these use cases, please see [Baggage Use Cases](https://github.com/w3c/baggage/blob/main/baggage/README.md).
