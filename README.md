@@ -41,7 +41,7 @@ Overview of team related communication channels:
 - **New** Slack channel to reach the team:
   [w3cdistributedtracing.slack.com](https://w3cdistributedtracing.slack.com).
 - Public Google calendar for all meetings and events [W3C Calendar](https://www.w3.org/groups/wg/distributed-tracing/calendar).
-- Starting with 2019-08-27 meeting notes can be found [here](https://docs.google.com/document/d/12AAIbnkt_AH1YjZwUwxirX_7WA7aWOSXpDweCgfqIiQ/edit?usp=sharing). Older notes can be found in this repo under [meeting_notes](./meeting_notes).
+- Starting with 2019-08-27 meeting notes can be found [here](https://docs.google.com/document/d/1n2qBB7TavHADTuDE1VyPyh2MQg4qtHAeCFkRZdyTtks/edit?usp=sharing). Older notes can be found in this repo under [meeting_notes](./meeting_notes).
 - Recordings of previous meetings can be found [here](https://drive.google.com/drive/folders/1MQ-XnXVGjux2KH7FPp7mFGRDZHCx_HMH?usp=sharing)
 
 We appreciate feedback and contributions. Please make sure to read rationale documents when you have a question about particular
