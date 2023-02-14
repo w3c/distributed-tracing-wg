@@ -31,7 +31,7 @@ Let’s look at a few key building blocks needed to tie things together:
 
 First, we need a way to *uniquely identify a logical operation* flowing through a system.
 
-We also *need a way for each participant to know* this unique identifier. This is so that each participant can associate what it is doing to handle its part of that operation. But how can each participant know this? One participant would have to first create this identifier, and then it must be somehow “propagated” to the others. This mechanism must be protocol specific: e.g., for HTTP, this must be through a HTTP header.
+We also *need a way for each participant to know* this unique identifier. This is so that each participant can associate what it is doing to handle its part of that operation. But how can each participant know this? One participant would have to first create this identifier, and then it needs to be propagated all other participants. The propagation mechanism will be protocol specific: e.g., for HTTP, an obvious choice is to use HTTP headers for propagation.
 
 We also then a *need a way for each participant to emit what it did*. We should be able to uniquely identify (within the scope of a single logical operation) the above unit of work done by each participant.
 
