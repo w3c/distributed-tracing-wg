@@ -48,7 +48,7 @@ To make things interoperable, we need a standard mechanism that everybody can ag
 
 ### Goals
 
-- To provide a standard mechanism to propagate shared context across various applications and services so that multiple tracing platforms can be used in concert with each other.
+- To provide a standard mechanism to propagate trace context across various applications and services so that multiple tracing platforms can be used in concert with each other.
 - To provide a method for application developers to trace requests without invading users' privacy.
 
 ### Non Goals
