@@ -24,7 +24,7 @@ In a complex distributed system, a single logical operation can involve work don
 
 But how do you tie them all together to understand what is happening? More generally, how do we gain the ability to answer questions about a system to understand it better: who all participated in handling an operation? What is the critical path? Where do failures happen? What characteristics did orders that took more than 20 minutes have in common? What are the performance trends over time? What are the reliability trends over time?
 
-You should be able to ask any such question and get answers. This specification helps improve the Observability of systems in an open and vendor-neutral way.
+You should be able to ask any such question and get answers. This specification helps improve the observability of systems in an open and vendor-neutral way.
 
 ### The building blocks needed to tie things together into a "Distributed Trace"
 Let’s look at a few key building blocks needed to tie things together:
