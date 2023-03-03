@@ -3,8 +3,8 @@
 ## Introduction
 The Distributed Tracing Working Group currently drives the standardization of two specifications:
 
-- W3C TraceContext
-- W3C Baggage
+- [W3C TraceContext](https://www.w3.org/TR/trace-context-2/)
+- [W3C Baggage](https://www.w3.org/TR/baggage/)
 
 Let's dive more into what these specifications cover and the need for them.
 
@@ -13,7 +13,9 @@ Let's dive more into what these specifications cover and the need for them.
 ### What is W3C TraceContext?
 The W3C TraceContext specification defines a universally agreed upon format to propagate trace context data. It specifies standard HTTP headers and standard value formats. It also defines a mechanism to forward vendor-specific trace data.
 
-These headers can also be propagated by systems that are not monitored but still need to participate in the trace to allow end-to-end tracing. The target implementation for the current version of the specification is applications and services; browsers/user-agents are not in scope.
+These headers can also be propagated by systems that are not monitored but still need to participate in the trace to allow end-to-end tracing.
+
+The intended audience of this specification are observability solutions such as tracing platforms or application performance monitoring providers as well as any applications/services. Browsers/user-agents are not currently in scope.
 
 ![Trace Context Propagation](./assets/explainer_all_in_one.png "Trace Context Propagation")
 
