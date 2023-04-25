@@ -3,7 +3,7 @@
 We welcome you to join the Distributed Tracing working group. This group works on
 standards to improve monitoring and troubleshooting of modern distributed
 applications also known as micro-services. These standards will help web
-framework developers, web servers, proxies and load balancers as well as tracing
+framework developers, web servers, proxies, and load balancers as well as tracing
 vendors.
 
 There are many ways to [contribute](CONTRIBUTING.md) to the specifications developed
@@ -13,7 +13,7 @@ build prototypes, and promote the group's work.
 
 If your employer is a member of W3C - officially joining the working
 group is a best way to promote your work. Listing company as a [group
-participant](https://www.w3.org/2000/09/dbwg/details?group=108594&order=org&public=1)
+participant](https://www.w3.org/groups/wg/distributed-tracing/participants)
 makes your company's contributions and endorsements more discoverable. And, as a
 result, specifications produced by the group will be more credible.
 
