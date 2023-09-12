@@ -12,7 +12,6 @@ function getData(url) {
 // Fetch any JSON data from W3C API and cache it
 function getW3CData(queryPath) {
   const apiURL = new URL(queryPath, W3C_APIURL);
-  apiURL.searchParams.set("apikey", "esj1ar4rl3scks04kg8kkwo4kwc8ow4");
   apiURL.searchParams.set("embed", "1"); // grab everything
   return getData(apiURL).then(data => {
     if (data.pages && data.pages > 1 && data.page < data.pages) {
